@@ -8,10 +8,30 @@ from server.models import AuthType, Users, Projects, Sources
 
 
 def new_google_user(profile):
-    profile_picture = profile["imageUrl"]
-    email = profile["email"]
-    auth_type = AuthType.GOOGLE
     user_name = profile["name"]
+    email = profile["email"]
+    profile_picture = profile["imageUrl"]
+    auth_type = AuthType.GOOGLE
+    user_id = uuid.uuid4()
+    db.session.add(Users(user_id, user_name,auth_type,email,profile_picture));
+    db.session.commit();
+
+def new_facebook_user(profile):
+    user_name = profile["name"]
+    email = "sample email"#profile["email"]
+    profile_picture = profile["picture"]["data"]["url"]
+    auth_type = AuthType.FACEBOOK
+    user_id = uuid.uuid4()
+    
+    user_id = uuid.uuid4()
+    db.session.add(Users(user_id, user_name,auth_type,email,profile_picture));
+    db.session.commit();
+    
+def new_microsoft_user(profile):
+    user_name = profile["name"]
+    email = profile["userName"]
+    profile_picture = "Sample Image"#profile["imageUrl"]
+    auth_type = AuthType.MICROSOFT
     user_id = uuid.uuid4()
     db.session.add(Users(user_id, user_name,auth_type,email,profile_picture));
     db.session.commit();
@@ -25,9 +45,19 @@ with app.app_context():
     db.session.commit()
 
 @socketio.on("new_google_user")
-def on_new_username(data):
+def on_new_google_user(data):
     profile = data["response"]["profileObj"]
     new_google_user(profile)
+ 
+@socketio.on("new_facebook_user")
+def on_new_facebook_user(data):
+    profile = data["response"]
+    new_facebook_user(profile)
+    
+@socketio.on("new_microsoft_user")
+def on_new_microsoft_user(data):
+    profile = data["response"]["account"]
+    new_microsoft_user(profile)
 
 @app.route("/")
 def index():

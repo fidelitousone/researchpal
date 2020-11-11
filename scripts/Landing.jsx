@@ -3,6 +3,8 @@ import * as ReactDOM from 'react-dom'
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { GoogleAuth } from './GoogleButton';
+import { FacebookAuth } from './FacebookButton';
+import { MicrosoftAuth } from './MicrosoftButton';
 
 export default function Landing() {
     return (
@@ -11,6 +13,8 @@ export default function Landing() {
             <br />
             <Button className="btn-outline-primary">Login</Button>{' '}
             <GoogleAuth />
+            <MicrosoftAuth />
+            <FacebookAuth />
         </div>
-    )
+    );
 }
