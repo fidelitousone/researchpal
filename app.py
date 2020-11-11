@@ -1,8 +1,20 @@
+import uuid
 from flask import render_template
 
 from server import create_app, run_app, db, socketio
 from server.models import AuthType, Users, Projects, Sources
 
+
+
+
+def new_google_user(profile):
+    profile_picture = profile["imageUrl"]
+    email = profile["email"]
+    auth_type = AuthType.GOOGLE
+    user_name = profile["name"]
+    user_id = uuid.uuid4()
+    db.session.add(Users(user_id, user_name,auth_type,email,profile_picture));
+    db.session.commit();
 
 # Setup Flask app
 STATIC_FOLDER = "../static"
@@ -14,7 +26,8 @@ with app.app_context():
 
 @socketio.on("new_google_user")
 def on_new_username(data):
-    print(data["response"]["profileObj"])
+    profile = data["response"]["profileObj"]
+    new_google_user(profile)
 
 @app.route("/")
 def index():
