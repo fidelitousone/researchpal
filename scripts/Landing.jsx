@@ -13,15 +13,15 @@ export default function Landing() {
       </div>
       <h2 align="center">Log in below:</h2>
       <div className="d-flex justify-content-center">
-          <div className="align-self-center px-2">
-            <GoogleAuth />
-          </div>
-          <div className="align-self-center px-2">
-            <MicrosoftAuth />
-          </div>
-          <div className="align-self-center px-2">
-            <FacebookAuth />
-          </div>
+        <div className="align-self-center px-2">
+          <GoogleAuth />
+        </div>
+        <div className="align-self-center px-2">
+          <MicrosoftAuth />
+        </div>
+        <div className="align-self-center px-2">
+          <FacebookAuth />
+        </div>
       </div>
     </div>
   );
