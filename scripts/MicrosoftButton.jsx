@@ -10,9 +10,12 @@ export default function MicrosoftAuth() {
     console.log('Sent new Microsoft user to server!');
   }
   function responseMicrosoftSuccess(err, response) {
-    console.log(err);
-    console.log('Response:', response);
-    handleSubmit(response);
+    if (response !== undefined) {
+      console.log(err);
+      console.log('Response:', response);
+      handleSubmit(response);
+    }
+    console.log('Microsoft Login Error, user canceled or no data was receieved from Microsoft.');
   }
 
   return (
